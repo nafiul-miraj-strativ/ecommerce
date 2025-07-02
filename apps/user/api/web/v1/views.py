@@ -10,7 +10,7 @@ class RegisterView(generics.CreateAPIView):
     serializer_class = RegisterSerializer
     permission_classes = [AllowAny]
     
-#Admin creates managers
+#Creates managers
 class CreateManagerView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = ManagerSerializer
