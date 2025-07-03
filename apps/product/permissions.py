@@ -1,7 +1,11 @@
 from rest_framework.permissions import BasePermission
+from apps.user.models import User
 
-class IsManager(BasePermission):
+class IsManagerOrAdmin(BasePermission):
     def has_permission(self, request, view):
-        return request.user and request.user.is_authenticated and request.user.role == 'manager'
-    
-    
+        user = request.user
+        return (
+            user
+            and user.is_authenticated
+            and (user.is_superuser or user.role in [User.MANAGER, User.ADMIN])
+        )
